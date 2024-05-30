@@ -1,3 +1,10 @@
+import HomepageHero from "@/components/homepage/hero/homepage-hero";
+
 export default function Home() {
-  return <div>abc</div>;
+  return (
+    <>
+      <HomepageHero />
+      <section className="h-screen"></section>
+    </>
+  );
 }
