@@ -3,7 +3,7 @@ import { CiLocationOn, CiSearch } from "react-icons/ci";
 
 function HomepageInput() {
   return (
-    <div className="bg-white px-3 py-2 rounded-full ">
+    <div className="bg-white px-3 py-2 rounded-full shadow-2xl ">
       <div className="bg-muted rounded-full flex items-center gap-2 ">
         <span className="text-lg sm:text-xl lg:text-2xl text-black p-2">
           <CiLocationOn />
