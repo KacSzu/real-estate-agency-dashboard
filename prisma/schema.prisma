@@ -37,3 +37,32 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verificationtokens")
 }
+
+model Property {
+  id               Int       @id @default(autoincrement())
+  city             String
+  title            String
+  type             PropertyType
+  country          String
+  price            String
+  numberBedrooms   String
+  numberBathrooms  String
+  description      String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  images           Image[]   @relation("PropertyImages")
+}
+
+model Image {
+  id              Int       @id @default(autoincrement())
+  imageSrc        String
+  thumbnailSrc    String
+  propertyId      Int
+  property        Property  @relation(fields: [propertyId], references: [id], name: "PropertyImages")
+}
+enum PropertyType {
+  Villa
+  Home
+  Flat
+}
+

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Header from "@/components/header/header";
 import { Toaster } from "sonner";
 import { SessionWrapper } from "./providers";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,8 +26,10 @@ export default function RootLayout({
     <SessionWrapper>
       <html lang="en">
         <body className={cn(poppins.variable, "antialiased ")}>
-          <main>{children}</main>
-          <Toaster />
+          <EdgeStoreProvider>
+            <main>{children}</main>
+            <Toaster />
+          </EdgeStoreProvider>
         </body>
       </html>
     </SessionWrapper>
