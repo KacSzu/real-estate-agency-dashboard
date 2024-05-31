@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
 const formSchema = z.object({
   email: z
     .string()
@@ -27,6 +27,8 @@ const formSchema = z.object({
 });
 
 function LoginForm() {
+  const { data: session } = useSession();
+
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,6 +54,7 @@ function LoginForm() {
       toast.error("An unexpected error occurred");
     }
   }
+
   return (
     <section>
       <Form {...form}>

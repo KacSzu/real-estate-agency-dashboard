@@ -7,7 +7,7 @@ function DashboardHeader() {
   const { data: session } = useSession();
   const emailFallback = session?.user?.email?.slice(0, 2);
   return (
-    <header className="px-4 h-14 flex justify-between items-center border-b border-gray-300">
+    <header className="fixed inset-0 z-20 bg-background px-4 h-14 flex justify-between items-center border-b border-gray-300">
       <nav className="flex items-center">
         <Image src={"/logo.png"} alt="logo" width={32} height={32} />
       </nav>

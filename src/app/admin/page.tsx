@@ -1,8 +1,13 @@
 import LoginForm from "@/components/admin/login-form";
 import Header from "@/components/header/header";
+import { authOptions } from "@/lib/auth-options";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const session = await getServerSession(authOptions);
+  if (session) redirect("/dashboard");
   return (
     <>
       <Header />
