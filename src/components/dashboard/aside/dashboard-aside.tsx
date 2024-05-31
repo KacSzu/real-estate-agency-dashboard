@@ -27,11 +27,11 @@ function DashboardAside() {
           {DASHBOARD_NAV_LINKS.map(({ label, href, icon }, i) => (
             <li
               key={i}
-              className={`rounded-md font-[500] p-2 ${
+              className={`rounded-md font-[500]  ${
                 pathname === href ? "bg-muted" : "hover:bg-muted/80"
               }`}
             >
-              <Link href={href} className="flex items-center gap-4">
+              <Link href={href} className="flex p-2 items-center gap-4">
                 <span className="text-xl">{icon}</span>
                 <span>{label}</span>
               </Link>
