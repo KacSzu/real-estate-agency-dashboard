@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-
+import { signIn } from "next-auth/react";
 const formSchema = z.object({
   email: z
     .string()
@@ -37,29 +37,21 @@ function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (data.error) {
-      form.setValue("password", "");
-      toast.error(data.error);
-    } else {
-      router.push("/dashboard");
-      form.reset();
-      toast.success("Login successful.");
+    try {
+      const res = await signIn("credentials", { ...values, redirect: false });
+      if (res?.error) {
+        form.setValue("password", "");
+        toast.error("Wrong email or password");
+      } else {
+        router.push("/dashboard");
+        form.reset();
+        toast.success("Login successful.");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An unexpected error occurred");
     }
   }
-
   return (
     <section>
       <Form {...form}>
@@ -94,7 +86,9 @@ function LoginForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">Login</Button>
+          <Button className="w-full" type="submit">
+            Login
+          </Button>
         </form>
       </Form>
     </section>

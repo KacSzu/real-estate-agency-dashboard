@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/header/header";
 import { Toaster } from "sonner";
+import { SessionWrapper } from "./providers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,12 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(poppins.variable, "antialiased ")}>
-        <Header />
-        <main>{children}</main>
-        <Toaster />
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang="en">
+        <body className={cn(poppins.variable, "antialiased ")}>
+          <main>{children}</main>
+          <Toaster />
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }

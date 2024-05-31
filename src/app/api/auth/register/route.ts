@@ -40,14 +40,7 @@ export async function POST(request: Request) {
     });
 
     // Respond with the created user
-    return NextResponse.json(
-      {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-      },
-      { status: 201 }
-    );
+    return NextResponse.json(user, { status: 201 });
   } catch (error: any) {
     console.error("Error registering user:", error.message);
     return NextResponse.json(
