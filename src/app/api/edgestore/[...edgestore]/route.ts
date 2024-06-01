@@ -1,6 +1,5 @@
 import { initEdgeStore } from "@edgestore/server";
 import { createEdgeStoreNextHandler } from "@edgestore/server/adapters/next/app";
-import { z } from "zod";
 
 const es = initEdgeStore.create();
 
