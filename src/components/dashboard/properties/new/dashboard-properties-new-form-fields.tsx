@@ -24,6 +24,23 @@ interface FormFieldProps {
   control: Control<z.infer<typeof NewPropertyFormSchema>>;
 }
 
+const DashboardPropertiesFormField: React.FC<FormFieldProps> = ({
+  control,
+}) => (
+  <FormField
+    control={control}
+    name="title"
+    render={({ field }) => (
+      <FormItem className="flex flex-col gap-1 justify-center col-span-12 md:col-span-4">
+        <FormLabel>Title</FormLabel>
+        <FormControl>
+          <Input placeholder="Villa in Marbella" {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+);
 const DashboardPropertiesNewTitleField: React.FC<FormFieldProps> = ({
   control,
 }) => (
@@ -118,7 +135,7 @@ const DashboardPropertiesNewPriceField: React.FC<FormFieldProps> = ({
       <FormItem className="flex flex-col gap-1 justify-center col-span-12 md:col-span-4">
         <FormLabel>Price in EUR</FormLabel>
         <FormControl>
-          <Input placeholder="10" {...field} />
+          <Input type="number" placeholder="10" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -136,7 +153,7 @@ const DashboardPropertiesNewNumberBedroomsField: React.FC<FormFieldProps> = ({
       <FormItem className="flex flex-col gap-1 justify-center col-span-12 md:col-span-4">
         <FormLabel>Number of Bedrooms</FormLabel>
         <FormControl>
-          <Input placeholder="For instance 2" {...field} />
+          <Input type="number" placeholder="For instance 2" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -154,7 +171,7 @@ const DashboardPropertiesNewNumberBathroomsField: React.FC<FormFieldProps> = ({
       <FormItem className="flex flex-col gap-1 col-span-12 md:col-span-4">
         <FormLabel>Number of Bathrooms</FormLabel>
         <FormControl>
-          <Input placeholder="For instance 1" {...field} />
+          <Input type="number" placeholder="For instance 1" {...field} />
         </FormControl>
         <FormMessage />
       </FormItem>

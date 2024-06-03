@@ -44,9 +44,9 @@ model Property {
   title            String
   type             PropertyType
   country          String
-  price            String
-  numberBedrooms   String
-  numberBathrooms  String
+  price            Float
+  numberBedrooms   Float
+  numberBathrooms  Float
   description      String
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt

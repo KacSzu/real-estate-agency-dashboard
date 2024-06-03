@@ -2,7 +2,6 @@ import DashboardPropertiesTable from "@/components/dashboard/properties/dashboar
 import DashboardSectionHeader from "@/components/ui/dashboard-section-header";
 import { BREADCRUMBS_PROPERTIES } from "@/lib/constants";
 import prisma from "@/lib/db";
-import { Suspense } from "react";
 
 async function fetchProperties() {
   const properties = await prisma.property.findMany({
@@ -10,27 +9,28 @@ async function fetchProperties() {
       images: true,
     },
   });
-  if (!properties) {
-    return null;
-  }
 
   return properties;
 }
 async function DashboardProperties() {
   const properties = await fetchProperties();
   if (!properties) return;
+
   return (
     <section className="space-y-4 p-6 md:p-8">
       <DashboardSectionHeader
         breadcrumbs={BREADCRUMBS_PROPERTIES}
         title="Properties"
-        count={properties.length}
         buttonLabel="Add property"
         href="/dashboard/properties/new"
       />
-      <Suspense fallback={<div>LOADING</div>}>
+      {properties.length >= 1 ? (
         <DashboardPropertiesTable properties={properties} />
-      </Suspense>
+      ) : (
+        <div className="flex justify-center items-center pt-24 font-semibold">
+          No properties found
+        </div>
+      )}
     </section>
   );
 }

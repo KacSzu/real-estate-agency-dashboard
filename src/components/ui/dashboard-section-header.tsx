@@ -2,6 +2,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import DashboardBreadcrumbs from "@/components/ui/dashboard-breadcrumb";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { memo } from "react";
 import { HiPlus } from "react-icons/hi2";
 interface IDashboardSectionHeader {
   breadcrumbs: {
@@ -9,14 +10,12 @@ interface IDashboardSectionHeader {
     link: string;
   }[];
   title: string;
-  count?: number;
   buttonLabel?: string;
   href?: string;
 }
 function DashboardSectionHeader({
   breadcrumbs,
   title,
-  count,
   buttonLabel,
   href,
 }: IDashboardSectionHeader) {
@@ -24,9 +23,7 @@ function DashboardSectionHeader({
     <>
       <DashboardBreadcrumbs breadcrumbs={breadcrumbs} />
       <div className="flex justify-between">
-        <h2 className="text-4xl font-bold tracking-tight">
-          {title} {count && <span>&#40;{count}&#41;</span>}
-        </h2>
+        <h2 className="text-4xl font-bold tracking-tight">{title}</h2>
         {href && (
           <Link
             href={href as string}
@@ -43,4 +40,4 @@ function DashboardSectionHeader({
   );
 }
 
-export default DashboardSectionHeader;
+export default memo(DashboardSectionHeader);

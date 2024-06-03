@@ -7,7 +7,6 @@ function DashboardUsers() {
       <DashboardSectionHeader
         breadcrumbs={BREADCRUMBS_USERS}
         title="Users"
-        count={4}
         buttonLabel="New user"
         href="/dashboard/users/new"
       />
