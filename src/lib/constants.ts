@@ -1,8 +1,7 @@
 export const NAV_LINKS = [
   { label: "Homepage", href: "/" },
-  { label: "Homepage", href: "/" },
-  { label: "Homepage", href: "/" },
-  { label: "Homepage", href: "/" },
+  { label: "Properties", href: "/properties" },
+  { label: "Dashboard", href: "/admin" },
 ];
 
 export const WHY_US_STATS = [
