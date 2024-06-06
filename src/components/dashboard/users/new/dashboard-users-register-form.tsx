@@ -14,41 +14,19 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-const formSchema = z
-  .object({
-    email: z
-      .string()
-      .min(1, "This field can't be empty")
-      .email("This is not a valid email."),
-    password: z
-      .string()
-      .min(6, "Password has to be at least 6 characters long")
-      .max(50),
-    confirmPassword: z
-      .string()
-      .min(6, "Confirm password has to be at least 6 characters long")
-      .max(50),
-  })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match",
-        path: ["confirmPassword"],
-      });
-    }
-  });
+import { NewUserFormSchema } from "@/lib/schema";
+
 function DashboardUsersRegisterForm() {
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof NewUserFormSchema>>({
+    resolver: zodResolver(NewUserFormSchema),
     defaultValues: {
       email: "",
       password: "",
       confirmPassword: "",
     },
   });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof NewUserFormSchema>) {
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: {

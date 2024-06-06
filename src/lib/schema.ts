@@ -26,3 +26,27 @@ export const NewPropertyFormSchema = z.object({
   ),
   description: z.string().min(1, { message: "Description is required" }),
 });
+export const NewUserFormSchema = z
+  .object({
+    email: z
+      .string()
+      .min(1, "This field can't be empty")
+      .email("This is not a valid email."),
+    password: z
+      .string()
+      .min(6, "Password has to be at least 6 characters long")
+      .max(50),
+    confirmPassword: z
+      .string()
+      .min(6, "Confirm password has to be at least 6 characters long")
+      .max(50),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "The passwords did not match",
+        path: ["confirmPassword"],
+      });
+    }
+  });

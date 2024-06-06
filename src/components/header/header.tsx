@@ -11,7 +11,7 @@ import Modal from "../ui/modal";
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isScrollingUp, setIsScrollingUp] = useState(false);
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile("1024");
   let lastScrollY = 0;
 
   useEffect(() => {
