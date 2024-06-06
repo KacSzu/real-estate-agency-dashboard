@@ -11,78 +11,49 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
-import { PropertyWithImagesType } from "@/lib/types";
-import { formatCurrency, formatDateToDDMMYYYY } from "@/lib/utils";
-import Image from "next/image";
+import { formatDateToDDMMYYYY } from "@/lib/utils";
+import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { toast } from "sonner";
 
-interface IDashboardPropertiesTableBody {
-  properties: PropertyWithImagesType[];
+interface IDashboardUsersTableBody {
+  users: User[];
 }
 
-function DashboardPropertiesTableBody({
-  properties,
-}: IDashboardPropertiesTableBody) {
+function DashboardUsersTableBody({ users }: IDashboardUsersTableBody) {
   const router = useRouter();
 
-  const deleteProperty = async (id: number) => {
+  const deleteUser = async (id: string) => {
     try {
-      const response = await fetch(`/api/properties?id=${id}`, {
+      const response = await fetch(`/api/auth/users/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
-        toast.success("Successfully deleted property");
+        toast.success("User deleted successfully.");
         router.refresh();
       } else {
-        toast.error("Could not delete property");
-        console.error("Failed to delete property");
+        toast.error("Failed to delete user");
+        console.error("Failed to delete user");
       }
     } catch (error) {
-      console.error("Failed to delete property", error);
+      console.error("Error deleting user:", error);
     }
   };
 
   return (
     <TableBody>
-      {properties.map((property) => {
-        const formatedDate = formatDateToDDMMYYYY(property.createdAt);
+      {users.map((user) => {
+        const formatedDate = formatDateToDDMMYYYY(user.createdAt);
         return (
-          <TableRow key={property.id}>
-            <TableCell className="font-medium">
-              {property.images.length > 0 ? (
-                <div className="relative w-32 h-32 shadow-2xl overflow-hidden rounded-xl">
-                  <Image
-                    className=""
-                    src={property.images[0].thumbnailSrc}
-                    alt={property.title}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                </div>
-              ) : (
-                "No image"
-              )}
-            </TableCell>
+          <TableRow key={user.id}>
             <TableCell className="text-sm font-semibold tracking-tight">
-              {property.title}
-            </TableCell>
-            <TableCell className="text-right text-sm font-semibold tracking-tight">
-              {property.type}
-            </TableCell>
-            <TableCell className="text-right text-sm font-semibold tracking-tight">
-              {property.country}
-            </TableCell>
-            <TableCell className="text-right text-sm font-semibold tracking-tight">
-              {property.city}
-            </TableCell>
-            <TableCell className="text-right text-sm font-semibold tracking-tight">
-              {formatCurrency(+property.price)}
+              {user.email}
             </TableCell>
             <TableCell className="text-right text-sm font-semibold tracking-tight">
               {formatedDate}
             </TableCell>
+
             <TableCell className="text-right text-sm font-semibold tracking-tight">
               <div>
                 <AlertDialog>
@@ -104,9 +75,7 @@ function DashboardPropertiesTableBody({
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        onClick={() => deleteProperty(property.id)}
-                      >
+                      <AlertDialogAction onClick={() => deleteUser(user.id)}>
                         Continue
                       </AlertDialogAction>
                     </AlertDialogFooter>
@@ -121,4 +90,4 @@ function DashboardPropertiesTableBody({
   );
 }
 
-export default DashboardPropertiesTableBody;
+export default DashboardUsersTableBody;

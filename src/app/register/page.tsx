@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/dashboard/register/register-form";
+import RegisterForm from "@/components/dashboard/users/register-form";
 
 function RegisterPage() {
   return (

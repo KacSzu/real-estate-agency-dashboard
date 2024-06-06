@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 const formSchema = z
   .object({
     email: z
@@ -37,7 +38,8 @@ const formSchema = z
       });
     }
   });
-function RegisterForm() {
+function DashboardUsersRegisterForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,11 +65,13 @@ function RegisterForm() {
       toast.error(data.error);
     } else {
       toast.success("Account created.");
+      router.push("/dashboard/users");
+      router.refresh();
     }
   }
   return (
     <section>
-      <div className="w-[800px]">
+      <div className="">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -77,7 +81,7 @@ function RegisterForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="abc@test.pl" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -91,7 +95,11 @@ function RegisterForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="shadcn" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Type your password"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -105,7 +113,11 @@ function RegisterForm() {
                 <FormItem>
                   <FormLabel>Confirm password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="shadcn" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="Confirm your password"
+                      {...field}
+                    />
                   </FormControl>
 
                   <FormMessage />
@@ -120,4 +132,4 @@ function RegisterForm() {
   );
 }
 
-export default RegisterForm;
+export default DashboardUsersRegisterForm;

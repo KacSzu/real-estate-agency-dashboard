@@ -18,10 +18,15 @@ export const BREADCRUMBS_PROPERTIES = [
 export const BREADCRUMBS_PROPERTIES_NEW = [
   { title: "Dashboard", link: "/dashboard" },
   { title: "Properties", link: "/dashboard/properties" },
-  { title: "New property", link: "/dashboard/new" },
+  { title: "New property", link: "/dashboard/properties/new" },
 ];
 
 export const BREADCRUMBS_USERS = [
   { title: "Dashboard", link: "/dashboard" },
   { title: "Users", link: "/dashboard/users" },
+];
+export const BREADCRUMBS_USERS_NEW = [
+  { title: "Dashboard", link: "/dashboard" },
+  { title: "Users", link: "/dashboard/users" },
+  { title: "New user", link: "/dashboard/users/new" },
 ];

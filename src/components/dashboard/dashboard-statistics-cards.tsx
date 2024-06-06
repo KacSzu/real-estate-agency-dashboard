@@ -1,11 +1,13 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { ReactNode } from "react";
+import { formatCurrency } from "@/lib/utils";
+import { Property, User } from "@prisma/client";
+import { ReactNode, memo } from "react";
 import { FiDollarSign } from "react-icons/fi";
 import { HiOutlineBuildingLibrary, HiOutlineUsers } from "react-icons/hi2";
 
 interface IDashboardStatisticCard {
   label: string;
-  value: string;
+  value: string | number;
   icon: ReactNode;
 }
 
@@ -25,15 +27,32 @@ function DashboardStatisticCard({
   );
 }
 
-function DashboardStatisticsCards() {
+interface IDashboardStatisticsCards {
+  properties: Property[];
+  users: User[];
+}
+function DashboardStatisticsCards({
+  properties,
+  users,
+}: IDashboardStatisticsCards) {
+  const totalValue = properties.reduce(
+    (sum, property) => sum + property.price,
+    0
+  );
+  const totalProperties = properties.length;
+  const totalUsers = users.length;
   const STATISTICS_CARDS_OPTIONS = [
-    { label: "Total value", value: "45000", icon: <FiDollarSign /> },
+    {
+      label: "Total value",
+      value: formatCurrency(totalValue),
+      icon: <FiDollarSign />,
+    },
     {
       label: "Total properties",
-      value: "12",
+      value: totalProperties,
       icon: <HiOutlineBuildingLibrary />,
     },
-    { label: "Total users", value: "4", icon: <HiOutlineUsers /> },
+    { label: "Total users", value: totalUsers, icon: <HiOutlineUsers /> },
     { label: "Total value", value: "45000", icon: <FiDollarSign /> },
   ];
 
@@ -51,4 +70,4 @@ function DashboardStatisticsCards() {
   );
 }
 
-export default DashboardStatisticsCards;
+export default memo(DashboardStatisticsCards);
