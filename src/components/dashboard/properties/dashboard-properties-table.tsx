@@ -4,13 +4,12 @@ import DashboardPropertiesTableHeader from "./dashboard-properties-table-header"
 import DashboardPropertiesTableBody from "./dashboard-properties-table-body";
 import { PropertyWithImagesType } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
+import { memo } from "react";
 
 interface IDashboardPropertiesTable {
   properties: PropertyWithImagesType[];
 }
-export default function DashboardPropertiesTable({
-  properties,
-}: IDashboardPropertiesTable) {
+function DashboardPropertiesTable({ properties }: IDashboardPropertiesTable) {
   const totalValue = properties.reduce(
     (sum, property) => sum + property.price,
     0
@@ -30,3 +29,4 @@ export default function DashboardPropertiesTable({
     </Table>
   );
 }
+export default memo(DashboardPropertiesTable);

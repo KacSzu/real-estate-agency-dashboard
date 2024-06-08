@@ -15,6 +15,7 @@ import { PropertyWithImagesType } from "@/lib/types";
 import { formatCurrency, formatDateToDDMMYYYY } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { memo } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { toast } from "sonner";
 
@@ -121,4 +122,4 @@ function DashboardPropertiesTableBody({
   );
 }
 
-export default DashboardPropertiesTableBody;
+export default memo(DashboardPropertiesTableBody);

@@ -4,6 +4,7 @@ import { Property, User } from "@prisma/client";
 import { ReactNode, memo } from "react";
 import { FiDollarSign } from "react-icons/fi";
 import { HiOutlineBuildingLibrary, HiOutlineUsers } from "react-icons/hi2";
+import { HiLink } from "react-icons/hi2";
 
 interface IDashboardStatisticCard {
   label: string;
@@ -53,7 +54,7 @@ function DashboardStatisticsCards({
       icon: <HiOutlineBuildingLibrary />,
     },
     { label: "Total users", value: totalUsers, icon: <HiOutlineUsers /> },
-    { label: "Total value", value: "45000", icon: <FiDollarSign /> },
+    { label: "Looking for job?", value: "Yes", icon: <HiLink /> },
   ];
 
   return (

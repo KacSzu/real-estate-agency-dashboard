@@ -76,7 +76,6 @@ const DashboardPropertiesAddPage = () => {
       form.reset();
       toast.success("Property created.");
     }
-    console.log(data);
   }
 
   return (

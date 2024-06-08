@@ -5,7 +5,7 @@ const NotFound = () => {
   return (
     <div className="h-screen flex justify-center items-center">
       <Header />
-      <p className="text-xl">Page does not exist</p>
+      <p className="text-xl">Page does not exist.</p>
     </div>
   );
 };

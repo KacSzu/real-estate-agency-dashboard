@@ -14,6 +14,7 @@ import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatDateToDDMMYYYY } from "@/lib/utils";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { memo } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { toast } from "sonner";
 
@@ -90,4 +91,4 @@ function DashboardUsersTableBody({ users }: IDashboardUsersTableBody) {
   );
 }
 
-export default DashboardUsersTableBody;
+export default memo(DashboardUsersTableBody);

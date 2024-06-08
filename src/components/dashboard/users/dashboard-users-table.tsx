@@ -3,6 +3,7 @@ import DashboardUsersTableHeader from "./dashboard-users-table-header";
 import { User } from "@prisma/client";
 import DashboardPropertiesTableBody from "../properties/dashboard-properties-table-body";
 import DashboardUsersTableBody from "./dashboard-users-table-body";
+import { memo } from "react";
 interface IDashboardUsersTable {
   users: User[];
 }
@@ -15,4 +16,4 @@ function DashboardUsersTable({ users }: IDashboardUsersTable) {
   );
 }
 
-export default DashboardUsersTable;
+export default memo(DashboardUsersTable);

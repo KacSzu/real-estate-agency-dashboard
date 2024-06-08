@@ -1,94 +1,59 @@
 "use client";
-import { Card, CardContent, CardTitle } from "../ui/card";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  ResponsiveContainer,
-} from "recharts";
-function DashboardChart() {
-  const data = [
-    {
-      name: "Jan",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Feb",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Mar",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Apr",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "May",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Jun",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Jul",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Aug",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Sep",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Oct",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Nov",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-    {
-      name: "Dec",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+import { Property } from "@prisma/client";
+import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { useMemo } from "react";
+import { format, parseISO, subMonths } from "date-fns";
+interface IDashboardChart {
+  properties: Property[];
+}
+interface DataPoint {
+  name: string;
+  count: number;
+}
+function DashboardChart({ properties }: IDashboardChart) {
+  const data = useMemo(() => {
+    const months: string[] = [];
+    for (let i = 11; i >= 0; i--) {
+      const date = subMonths(new Date(), i);
+      months.push(format(date, "MMM"));
+    }
+
+    const countByMonth: { [key: string]: number } = months.reduce(
+      (acc, month) => {
+        acc[month] = 0;
+        return acc;
+      },
+      {} as { [key: string]: number }
+    );
+
+    properties.forEach((property) => {
+      const createdAt =
+        typeof property.createdAt === "string"
+          ? parseISO(property.createdAt)
+          : property.createdAt;
+      const month = format(createdAt, "MMM");
+      if (countByMonth[month] !== undefined) {
+        countByMonth[month] += 1;
+      }
+    });
+
+    const data: DataPoint[] = months.map((month) => ({
+      name: month,
+      count: countByMonth[month],
+    }));
+
+    return data;
+  }, [properties]);
 
   return (
     <Card className="col-span-4 ">
-      <CardTitle className="p-6  tracking-tight text-sm font-medium">
+      <CardTitle className="p-6 pb-3  tracking-tight text-sm font-medium">
         Overview
       </CardTitle>
+      <CardDescription className="text-xs font-semibold px-6 pb-3">
+        Properties added each month
+      </CardDescription>
       <CardContent className="p-6 pt-0 pl-2">
         <ResponsiveContainer width="100%" height={350}>
           <BarChart data={data}>
@@ -104,9 +69,9 @@ function DashboardChart() {
               fontSize={12}
               tickLine={false}
               axisLine={false}
-              tickFormatter={(value) => `$${value}`}
+              tickFormatter={(value) => `${value}`}
             />
-            <Bar dataKey="uv" fill="#adfa1d" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="count" fill="#adfa1d" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

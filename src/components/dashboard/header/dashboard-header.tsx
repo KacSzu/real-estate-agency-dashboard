@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { DASHBOARD_NAV_LINKS } from "../aside/dashboard-aside";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 function DashboardHeader() {
   const isMobile = useIsMobile("767");
   const { data: session } = useSession();
@@ -46,11 +47,11 @@ function DashboardHeader() {
           <Image src={"/logo.png"} alt="logo" width={32} height={32} />
         )}
       </nav>
-      <div className="ml-4 text-lg font-semibold flex gap-2">
+      <div className="ml-4 text-lg font-semibold flex gap-3">
         <Avatar>
           <AvatarFallback className="uppercase">{emailFallback}</AvatarFallback>
         </Avatar>
-        <button onClick={() => signOut()}>Log out</button>
+        <Button onClick={() => signOut()}>Log out</Button>
       </div>
     </header>
   );
