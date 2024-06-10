@@ -15,8 +15,10 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { NewUserFormSchema } from "@/lib/schema";
-
+import { useState } from "react";
+import { ImSpinner } from "react-icons/im";
 function DashboardUsersRegisterForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof NewUserFormSchema>>({
     resolver: zodResolver(NewUserFormSchema),
@@ -27,6 +29,8 @@ function DashboardUsersRegisterForm() {
     },
   });
   async function onSubmit(values: z.infer<typeof NewUserFormSchema>) {
+    setIsLoading(true);
+
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: {
@@ -40,8 +44,10 @@ function DashboardUsersRegisterForm() {
     const data = await response.json();
 
     if (data.error) {
+      setIsLoading(false);
       toast.error(data.error);
     } else {
+      setIsLoading(false);
       toast.success("Account created.");
       router.push("/dashboard/users");
       router.refresh();
@@ -102,7 +108,15 @@ function DashboardUsersRegisterForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <div className="flex justify-center sm:justify-end">
+              <Button className="w-full sm:w-[300px]" type="submit">
+                {isLoading ? (
+                  <ImSpinner className="animate-spin text-xl disabled:cursor-not-allowed" />
+                ) : (
+                  "Create"
+                )}
+              </Button>
+            </div>
           </form>
         </Form>
       </div>

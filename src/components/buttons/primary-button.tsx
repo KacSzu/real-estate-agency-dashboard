@@ -23,12 +23,12 @@ function PrimaryButton({ text, href, type }: IPrimaryButton) {
     return (
       <button
         type={type}
-        className="bg-muted rounded-full  flex items-center pl-2 pr-3 py-2 gap-2 shadow-xl"
+        className="bg-muted rounded-full  flex  items-center pl-2 pr-3 py-2 gap-2 shadow-xl w-full"
       >
         <span className="text-2xl bg-green-400 rounded-full p-1">
           <CgArrowLongRightR />
         </span>
-        <span className="text-xs uppercase font-semibold">{text}</span>
+        <span className="text-xs uppercase font-semibold flex-1 ">{text}</span>
       </button>
     );
   }

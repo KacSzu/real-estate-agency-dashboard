@@ -15,6 +15,8 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { redirect, useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
+import { useState } from "react";
+import { ImSpinner } from "react-icons/im";
 const formSchema = z.object({
   email: z
     .string()
@@ -27,6 +29,7 @@ const formSchema = z.object({
 });
 
 function LoginForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,16 +41,20 @@ function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      setIsLoading(true);
       const res = await signIn("credentials", { ...values, redirect: false });
       if (res?.error) {
+        setIsLoading(false);
         form.setValue("password", "");
         toast.error("Wrong email or password");
       } else {
+        setIsLoading(false);
         router.push("/dashboard");
         form.reset();
         toast.success("Login successful.");
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Login error:", error);
       toast.error("An unexpected error occurred");
     }
@@ -88,7 +95,11 @@ function LoginForm() {
             )}
           />
           <Button className="w-full" type="submit">
-            Login
+            {isLoading ? (
+              <ImSpinner className="animate-spin text-xl disabled:cursor-not-allowed" />
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
       </Form>

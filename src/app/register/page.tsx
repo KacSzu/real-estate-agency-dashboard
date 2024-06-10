@@ -1,9 +1,9 @@
-import RegisterForm from "@/components/dashboard/users/register-form";
+import DashboardUsersRegisterForm from "@/components/dashboard/users/new/dashboard-users-register-form";
 
 function RegisterPage() {
   return (
     <div className="pt-[250px] flex justify-center">
-      <RegisterForm />
+      <DashboardUsersRegisterForm />
     </div>
   );
 }

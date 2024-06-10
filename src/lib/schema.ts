@@ -50,3 +50,9 @@ export const NewUserFormSchema = z
       });
     }
   });
+
+export const ContactFormSchema = z.object({
+  full_name: z.string().min(2, "Full name is required"),
+  email: z.string().min(1, "E-mail is required"),
+  phone_number: z.string().min(1, "Phone number is required"),
+});

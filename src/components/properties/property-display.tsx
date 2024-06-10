@@ -35,7 +35,7 @@ function PropertyDisplay({ property }: IPropertyDisplay) {
     images,
   } = property;
   return (
-    <section className="pt-[150px] max-w-5xl xl:max-w-6xl mx-auto px-4 grid gap-2 grid-cols-12 py-12">
+    <section className="pt-[150px] max-w-5xl xl:max-w-6xl mx-auto px-4 grid gap-4 grid-cols-12 py-12">
       <div className="space-y-2 col-span-12 sm:col-span-5">
         <div>
           <div className="sm:hidden mb-5">

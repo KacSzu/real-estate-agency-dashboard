@@ -20,35 +20,40 @@ function DashboardTypeChart({ properties }: ITypeChart) {
   const countProjectTypes = (
     properties: Property[] | undefined
   ): ProjectTypeCounts => {
-    const counts: ProjectTypeCounts = {};
+    const counts: ProjectTypeCounts = {
+      Villa: 0,
+      Home: 0,
+      Flat: 0,
+    };
 
     properties?.forEach((property) => {
       const { type } = property;
-      if (counts[type]) {
+      if (counts[type] !== undefined) {
         counts[type]++;
-      } else {
-        counts[type] = 1;
       }
     });
 
     return counts;
   };
+
   const projectTypeCounts = countProjectTypes(properties);
+
   const data = [
     {
       subject: "Villa",
-      A: projectTypeCounts.Villa,
+      value: projectTypeCounts.Villa,
     },
 
     {
       subject: "Home",
-      A: projectTypeCounts.Home,
+      value: projectTypeCounts.Home,
     },
     {
       subject: "Flat",
-      A: projectTypeCounts.Flat,
+      value: projectTypeCounts.Flat,
     },
   ];
+  console.log(projectTypeCounts);
   return (
     <Card className="col-span-3 ">
       <CardTitle className="p-6  tracking-tight text-sm font-medium">
@@ -61,8 +66,8 @@ function DashboardTypeChart({ properties }: ITypeChart) {
             <PolarAngleAxis dataKey="subject" />
             <PolarRadiusAxis angle={50} domain={[0, 10]} />
             <Radar
-              name="Mike"
-              dataKey="A"
+              name="Type"
+              dataKey="value"
               stroke="#22c55e"
               fill="#adfa1d"
               fillOpacity={0.6}

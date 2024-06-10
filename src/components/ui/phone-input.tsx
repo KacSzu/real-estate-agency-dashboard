@@ -1,11 +1,8 @@
+"use client";
 import { CheckIcon, ChevronsUpDown } from "lucide-react";
-
 import * as React from "react";
-
 import * as RPNInput from "react-phone-number-input";
-
 import flags from "react-phone-number-input/flags";
-
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -21,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "./scroll-area";
 
@@ -30,7 +26,7 @@ type PhoneInputProps = Omit<
   "onChange" | "value"
 > &
   Omit<RPNInput.Props<typeof RPNInput.default>, "onChange"> & {
-    onChange?: (value: RPNInput.Value) => void;
+    onChange?: (value: RPNInput.Value | "") => void;
   };
 
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
@@ -52,7 +48,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
            *
            * @param {E164Number | undefined} value - The entered value
            */
-          onChange={(value) => onChange?.(value || "")}
+          onChange={(value) => onChange?.(value ?? "")}
           {...props}
         />
       );
@@ -115,14 +111,13 @@ const CountrySelect = ({
         <Command>
           <CommandList>
             <ScrollArea className="h-72">
-              <CommandInput placeholder="Select a country" />
-              <CommandEmpty>Not found.</CommandEmpty>
+              <CommandInput placeholder="Search country..." />
+              <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
                 {options
                   .filter((x) => x.value)
                   .map((option) => (
                     <CommandItem
-                      defaultValue="PL"
                       className="gap-2"
                       key={option.value}
                       onSelect={() => handleSelect(option.value)}
@@ -133,7 +128,7 @@ const CountrySelect = ({
                       />
                       <span className="flex-1 text-sm">{option.label}</span>
                       {option.value && (
-                        <span className="text-sm text-foreground/50">
+                        <span className="text-foreground/50 text-sm">
                           {`+${RPNInput.getCountryCallingCode(option.value)}`}
                         </span>
                       )}
@@ -158,7 +153,7 @@ const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
   const Flag = flags[country];
 
   return (
-    <span className="flex h-4 w-6 overflow-hidden rounded-sm bg-foreground/20">
+    <span className="bg-foreground/20 flex h-4 w-6 overflow-hidden rounded-sm">
       {Flag && <Flag title={countryName} />}
     </span>
   );

@@ -23,8 +23,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-
+import { ImSpinner } from "react-icons/im";
 const DashboardPropertiesAddPage = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const [imageUrls, setImageUrls] = useState<
     {
@@ -59,6 +60,7 @@ const DashboardPropertiesAddPage = () => {
 
   async function onSubmit(values: z.infer<typeof NewPropertyFormSchema>) {
     const formValues = { ...values, files: imageUrls };
+    setIsLoading(true);
     const res = await fetch("/api/properties", {
       method: "POST",
       headers: {
@@ -69,8 +71,10 @@ const DashboardPropertiesAddPage = () => {
     const data = await res.json();
 
     if (data.error) {
+      setIsLoading(false);
       toast.error(data.error);
     } else {
+      setIsLoading(false);
       router.push("/dashboard/properties");
       router.refresh();
       form.reset();
@@ -108,9 +112,13 @@ const DashboardPropertiesAddPage = () => {
             />
             <DashboardPropertiesNewDescriptionField control={form.control} />
           </div>
-          <div className="flex justify-center">
-            <Button className="w-full sm:w-[500px]" type="submit">
-              Submit
+          <div className="flex justify-center sm:justify-end">
+            <Button className="w-full sm:w-[300px]" type="submit">
+              {isLoading ? (
+                <ImSpinner className="animate-spin text-xl disabled:cursor-not-allowed" />
+              ) : (
+                "Create"
+              )}
             </Button>
           </div>
         </form>

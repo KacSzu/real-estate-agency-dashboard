@@ -3,27 +3,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { PhoneInput } from "../ui/phone-input";
 import PrimaryButton from "../buttons/primary-button";
-const formSchema = z.object({
-  full_name: z.string().min(2, "Full name is required"),
-  email: z.string().min(1, "E-mail is required"),
-  phone_number: z.string().min(1, "Phone number is required"),
-});
+import { PhoneInput } from "../ui/phone-input";
+import { ContactFormSchema } from "@/lib/schema";
+
 function PropertyContactForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof ContactFormSchema>>({
+    resolver: zodResolver(ContactFormSchema),
     defaultValues: {
       full_name: "",
       email: "",
@@ -31,9 +25,7 @@ function PropertyContactForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  function onSubmit(values: z.infer<typeof ContactFormSchema>) {}
 
   return (
     <Form {...form}>
