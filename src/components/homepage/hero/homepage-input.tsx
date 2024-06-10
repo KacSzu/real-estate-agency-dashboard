@@ -10,9 +10,12 @@ function HomepageInput() {
         </span>
         <input
           className="rounded-full bg-muted placeholder:text-xs sm:placeholder:text-sm text-black focus:ring-0 focus:outline-none focus:border-transparent py-2 px-1 sm:w-[200px]"
-          placeholder="What city are you want to live?"
+          placeholder="What city do you want to live?"
         />
-        <button className="bg-emerald-500 p-2 rounded-full text-lg sm:text-xl lg:text-2xl">
+        <button
+          disabled
+          className="bg-emerald-500 p-2 rounded-full text-lg sm:text-xl lg:text-2xl disabled:cursor-not-allowed"
+        >
           <CiSearch />
         </button>
       </div>

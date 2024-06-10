@@ -6,6 +6,7 @@ import { Image } from "@prisma/client";
 import PropertyImage from "@/components/properties/property-image";
 import PropertyImageCarousel from "@/components/properties/property-image-carousel";
 import { PropertyWithImagesType } from "@/lib/types";
+import PropertyContactForm from "./property-contact-form";
 interface IPropertyDisplay {
   property: PropertyWithImagesType;
 }
@@ -37,6 +38,9 @@ function PropertyDisplay({ property }: IPropertyDisplay) {
     <section className="pt-[150px] max-w-5xl xl:max-w-6xl mx-auto px-4 grid gap-2 grid-cols-12 py-12">
       <div className="space-y-2 col-span-12 sm:col-span-5">
         <div>
+          <div className="sm:hidden mb-5">
+            <PropertyImageCarousel images={images} />
+          </div>
           <h1 className="text-4xl font-semibold tracking-tight">{title}</h1>
           <p className="text-sm text-muted-foreground">
             {country}, {city}
@@ -60,8 +64,9 @@ function PropertyDisplay({ property }: IPropertyDisplay) {
         </div>
         {/* DESCRIPTION */}
         <p>{description}</p>
-        <div className="sm:hidden">
-          <PropertyImageCarousel images={images} />
+        <div className="pt-4 space-y-3">
+          <h2 className="text-3xl  tracking-tight">Contact us</h2>
+          <PropertyContactForm />
         </div>
       </div>
       <div className="hidden sm:col-span-7  sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">

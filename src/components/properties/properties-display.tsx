@@ -3,13 +3,15 @@ import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
+
 interface IPropertiesDisplay {
   properties: PropertyWithImagesType[];
 }
+
 function PropertiesDisplay({ properties }: IPropertiesDisplay) {
   return (
-    <section className="pt-[120px] max-w-5xl xl:max-w-6xl mx-auto">
-      <div className="grid grid-cols-12 gap-3">
+    <section className="pt-[150px] max-w-5xl xl:max-w-6xl mx-auto px-4  py-12">
+      <div className="grid grid-cols-12  gap-3">
         {properties.map((property, i) => (
           <Link
             className="col-span-12 md:col-span-6 lg:col-span-4 flex flex-col items-center cursor-pointer"
