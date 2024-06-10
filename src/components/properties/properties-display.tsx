@@ -5,14 +5,14 @@ import Link from "next/link";
 import { memo } from "react";
 
 interface IPropertiesDisplay {
-  properties: PropertyWithImagesType[];
+  filteredProperties: PropertyWithImagesType[];
 }
 
-function PropertiesDisplay({ properties }: IPropertiesDisplay) {
+function PropertiesDisplay({ filteredProperties }: IPropertiesDisplay) {
   return (
-    <section className="pt-[150px] max-w-5xl xl:max-w-6xl mx-auto px-4  py-12">
+    <section className="">
       <div className="grid grid-cols-12  gap-3">
-        {properties.map((property, i) => (
+        {filteredProperties.map((property, i) => (
           <Link
             className="col-span-12 md:col-span-6 lg:col-span-4 flex flex-col items-center cursor-pointer"
             href={`/properties/${property.id}`}
