@@ -77,3 +77,9 @@
 .text-shadow {
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
 }
+body[data-scroll-locked] {
+  min-width: 100%;
+}
+html {
+  overflow-x: hidden;
+}

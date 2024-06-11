@@ -1,7 +1,6 @@
 import Header from "@/components/header/header";
 import PropertiesDisplay from "@/components/properties/properties-display";
 import PropertiesFilters from "@/components/properties/properties-filters";
-import PropertiesPagination from "@/components/ui/properties-pagination";
 import { FETCH_PER_PAGE_LIMIT } from "@/lib/constants";
 import prisma from "@/lib/db";
 import { Property, PropertyType } from "@prisma/client";
@@ -66,23 +65,27 @@ export default async function PropertiesPage({
     const currentPage = parseInt(searchParams.page ?? "1", 10);
     const offset = (currentPage - 1) * FETCH_PER_PAGE_LIMIT;
 
-    const filteredProperties = await prisma.property.findMany({
-      where: whereClause,
-      include: {
-        images: true,
-      },
-      skip: offset,
-      take: FETCH_PER_PAGE_LIMIT,
-    });
+    const [filteredProperties, filteredPropertiesCount] = await Promise.all([
+      prisma.property.findMany({
+        where: whereClause,
+        include: {
+          images: true,
+        },
+        skip: offset,
+        take: FETCH_PER_PAGE_LIMIT,
+      }),
+      prisma.property.count({ where: whereClause }),
+    ]);
 
-    return filteredProperties;
+    return { filteredProperties, filteredPropertiesCount };
   }
 
   const { properties, totalProperties } = await fetchAllProperties();
-  const filteredProperties = await fetchFilteredProperties(searchParams);
+  const { filteredProperties, filteredPropertiesCount } =
+    await fetchFilteredProperties(searchParams);
   const cityCounts = countCities(properties);
   const currentPage = searchParams?.page ?? 1;
-  const totalPages = Math.ceil(totalProperties / FETCH_PER_PAGE_LIMIT);
+  const totalPages = Math.ceil(filteredPropertiesCount / FETCH_PER_PAGE_LIMIT);
 
   return (
     <>

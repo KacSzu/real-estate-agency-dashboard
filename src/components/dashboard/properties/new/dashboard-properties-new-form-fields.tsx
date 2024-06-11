@@ -24,23 +24,6 @@ interface FormFieldProps {
   control: Control<z.infer<typeof NewPropertyFormSchema>>;
 }
 
-const DashboardPropertiesFormField: React.FC<FormFieldProps> = ({
-  control,
-}) => (
-  <FormField
-    control={control}
-    name="title"
-    render={({ field }) => (
-      <FormItem className="flex flex-col gap-1 justify-center col-span-12 md:col-span-4">
-        <FormLabel>Title</FormLabel>
-        <FormControl>
-          <Input placeholder="Villa in Marbella" {...field} />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-);
 const DashboardPropertiesNewTitleField: React.FC<FormFieldProps> = ({
   control,
 }) => (

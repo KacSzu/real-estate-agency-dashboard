@@ -33,30 +33,35 @@ function PropertiesFilters({ cityCounts }: IPropertiesFiltersProps) {
     if (type) setSelectedType(type);
   }, [searchParams]);
 
-  const handleParamChange = (param: string, value: string) => {
-    const params = new URLSearchParams(window.location.search);
-    params.set(param, value);
-    router.push(`?${params.toString()}`);
+  const handleCombinedParamChange = (params: { [key: string]: string }) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    Object.keys(params).forEach((param) => {
+      urlParams.set(param, params[param]);
+    });
+    urlParams.set("page", "1");
+    router.push(`?${urlParams.toString()}`);
   };
 
   const handleCityChange = (city: string) => {
     setSelectedCity(city);
-    handleParamChange("city", city);
+    handleCombinedParamChange({ city, type: selectedType || "" });
   };
 
   const handleTypeChange = (type: string) => {
     setSelectedType(type);
-    handleParamChange("type", type);
+    handleCombinedParamChange({ city: selectedCity || "", type });
   };
+
   const resetCity = () => {
     setSelectedCity(null);
-    handleParamChange("city", "");
+    handleCombinedParamChange({ city: "", type: selectedType || "" });
   };
 
   const resetType = () => {
     setSelectedType(null);
-    handleParamChange("type", "");
+    handleCombinedParamChange({ city: selectedCity || "", type: "" });
   };
+
   return (
     <div className="flex flex-col md:flex-row justify-center md:justify-start items-center gap-3">
       <div className="flex gap-1 items-center">
