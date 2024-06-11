@@ -21,8 +21,8 @@ function DashboardAside() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden relative  md:flex flex-col w-[20%] max-w-[230px] border-r border-gray-300 py-8">
-      <nav className="flex-grow">
+    <aside className="hidden flex-shrink-0 relative  md:flex flex-col w-[20%] max-w-[230px] border-r border-gray-300 py-8">
+      <nav>
         <ul className="space-y-2 p-4 text-sm tracking-tight font-semibold">
           {DASHBOARD_NAV_LINKS.map(({ label, href, icon }, i) => (
             <li

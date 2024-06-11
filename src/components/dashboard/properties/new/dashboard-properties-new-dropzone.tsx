@@ -58,7 +58,6 @@ const DashboardPropertiesNewDropzone: React.FC<
           try {
             const res = await edgestore.realEstateImages.upload({
               file: addedFileState.file as File,
-              options: { temporary: true },
               onProgressChange: async (progress: any) => {
                 updateFileProgress(addedFileState.key, progress);
                 if (progress === 100) {

@@ -24,7 +24,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { ImSpinner } from "react-icons/im";
+import useDisableScroll from "@/hooks/use-disabled-scroll";
 const DashboardPropertiesAddPage = () => {
+  useDisableScroll();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fileStates, setFileStates] = useState<FileState[]>([]);
   const [imageUrls, setImageUrls] = useState<
@@ -83,7 +85,7 @@ const DashboardPropertiesAddPage = () => {
   }
 
   return (
-    <section className="space-y-4 p-6 md:p-8">
+    <section className="space-y-4 p-6 md:p-8 flex-grow ">
       <DashboardSectionHeader
         breadcrumbs={BREADCRUMBS_PROPERTIES_NEW}
         title="Add property"
