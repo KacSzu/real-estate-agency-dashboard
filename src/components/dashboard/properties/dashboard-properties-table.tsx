@@ -5,16 +5,9 @@ import DashboardPropertiesTableBody from "./dashboard-properties-table-body";
 import { PropertyWithImagesType } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
 import { memo } from "react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { FETCH_PER_PAGE_LIMIT } from "@/lib/constants";
 import { useRouter } from "next/navigation";
+import PropertiesPagination from "@/components/ui/properties-pagination";
 
 interface IDashboardPropertiesTable {
   properties: PropertyWithImagesType[];
@@ -37,25 +30,6 @@ function DashboardPropertiesTable({
     router.push(`/dashboard/properties?page=${page}`);
   };
 
-  const getPaginationItems = () => {
-    const currentPageNumber = +currentPage;
-    let pages = [];
-
-    if (totalPages <= 3) {
-      pages = Array.from({ length: totalPages }, (_, index) => index + 1);
-    } else {
-      if (currentPageNumber <= 2) {
-        pages = [1, 2, "...", totalPages];
-      } else if (currentPageNumber >= totalPages - 1) {
-        pages = [1, "...", totalPages - 1, totalPages];
-      } else {
-        pages = [1, "...", currentPageNumber, "...", totalPages];
-      }
-    }
-
-    return pages;
-  };
-
   return (
     <>
       <Table>
@@ -71,39 +45,11 @@ function DashboardPropertiesTable({
         </TableFooter>
       </Table>
       {totalPages > 1 && (
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={() => handlePageChange(Math.max(+currentPage - 1, 1))}
-              />
-            </PaginationItem>
-            {getPaginationItems().map((page, index) => (
-              <PaginationItem key={index}>
-                {page === "..." ? (
-                  <span className="px-2 py-1 sm:px-3 sm:py-2">...</span>
-                ) : (
-                  <PaginationLink
-                    href="#"
-                    isActive={page === +currentPage}
-                    onClick={() => handlePageChange(page as number)}
-                  >
-                    {page}
-                  </PaginationLink>
-                )}
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                onClick={() =>
-                  handlePageChange(Math.min(+currentPage + 1, totalPages))
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <PropertiesPagination
+          currentPage={+currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       )}
     </>
   );
