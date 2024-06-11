@@ -12,18 +12,22 @@ interface IDashboardSectionHeader {
   title: string;
   buttonLabel?: string;
   href?: string;
+  count?: number;
 }
 function DashboardSectionHeader({
   breadcrumbs,
   title,
   buttonLabel,
   href,
+  count,
 }: IDashboardSectionHeader) {
   return (
     <>
       <DashboardBreadcrumbs breadcrumbs={breadcrumbs} />
       <div className="flex justify-between">
-        <h2 className="text-4xl font-bold tracking-tight">{title}</h2>
+        <h2 className="text-4xl font-bold tracking-tight">
+          {title} {count && count >= 1 && <span>&#40;{count}&#41;</span>}
+        </h2>
         {href && (
           <Link
             href={href as string}

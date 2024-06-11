@@ -58,28 +58,7 @@ function PropertiesFilters({ cityCounts }: IPropertiesFiltersProps) {
     handleParamChange("type", "");
   };
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center gap-3">
-      <div className="flex gap-1 items-center">
-        <HiXMark
-          className="cursor-pointer flex-start mr-2 h-5 w-5"
-          onClick={resetCity}
-        />
-        <Select value={selectedCity || ""} onValueChange={handleCityChange}>
-          <SelectTrigger className="w-[300px]">
-            <SelectValue placeholder="Select a city" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Cities</SelectLabel>
-              {cityCounts.map(({ city, count }) => (
-                <SelectItem key={city} value={city}>
-                  {city} &#40;{count}&#41;
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+    <div className="flex flex-col md:flex-row justify-center md:justify-start items-center gap-3">
       <div className="flex gap-1 items-center">
         <HiXMark
           className="cursor-pointer flex-start mr-2 h-5 w-5"
@@ -95,6 +74,27 @@ function PropertiesFilters({ cityCounts }: IPropertiesFiltersProps) {
               {["Villa", "Home", "Flat"].map((str, i) => (
                 <SelectItem key={i} value={str}>
                   {str}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex gap-1 items-center">
+        <HiXMark
+          className="cursor-pointer flex-start mr-2 h-5 w-5"
+          onClick={resetCity}
+        />
+        <Select value={selectedCity || ""} onValueChange={handleCityChange}>
+          <SelectTrigger className="w-[300px]">
+            <SelectValue placeholder="Select a city" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Cities</SelectLabel>
+              {cityCounts.map(({ city, count }) => (
+                <SelectItem key={city} value={city}>
+                  {city} &#40;{count}&#41;
                 </SelectItem>
               ))}
             </SelectGroup>

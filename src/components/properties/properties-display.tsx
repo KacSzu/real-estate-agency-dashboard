@@ -28,7 +28,9 @@ function PropertiesDisplay({ filteredProperties }: IPropertiesDisplay) {
             />
             <div className="flex items-center justify-between w-[400px] px-8 py-4">
               <h3 className="text-xl font-semibold">{property.title}</h3>
-              <p className="text-base ">{formatCurrency(property.price)}</p>
+              <p className="text-base lg:pr-3">
+                {formatCurrency(property.price)}
+              </p>
             </div>
           </Link>
         ))}

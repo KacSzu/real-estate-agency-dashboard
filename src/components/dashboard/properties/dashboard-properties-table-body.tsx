@@ -14,7 +14,7 @@ import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { PropertyWithImagesType } from "@/lib/types";
 import { formatCurrency, formatDateToDDMMYYYY } from "@/lib/utils";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { memo } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
 import { toast } from "sonner";
@@ -27,7 +27,8 @@ function DashboardPropertiesTableBody({
   properties,
 }: IDashboardPropertiesTableBody) {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const deleteProperty = async (id: number) => {
     try {
       const response = await fetch(`/api/properties?id=${id}`, {
@@ -35,7 +36,12 @@ function DashboardPropertiesTableBody({
       });
       if (response.ok) {
         toast.success("Successfully deleted property");
-        router.refresh();
+        if (properties.length === 1 && currentPage > 1) {
+          router.push(`/dashboard/properties?page=${currentPage - 1}`);
+          router.refresh();
+        } else {
+          router.refresh();
+        }
       } else {
         toast.error("Could not delete property");
         console.error("Failed to delete property");

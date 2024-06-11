@@ -30,3 +30,5 @@ export const BREADCRUMBS_USERS_NEW = [
   { title: "Users", link: "/dashboard/users" },
   { title: "New user", link: "/dashboard/users/new" },
 ];
+
+export const FETCH_PER_PAGE_LIMIT = 10;

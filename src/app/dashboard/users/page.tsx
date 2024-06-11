@@ -6,13 +6,15 @@ import React from "react";
 async function fetchUsers() {
   const users = await prisma.user.findMany();
 
-  return users;
+  const totalUsers = await prisma.user.count();
+  return { users, totalUsers };
 }
 async function DashboardUsers() {
-  const users = await fetchUsers();
+  const { users, totalUsers } = await fetchUsers();
   return (
     <section className="space-y-4 p-6 md:p-8">
       <DashboardSectionHeader
+        count={totalUsers}
         breadcrumbs={BREADCRUMBS_USERS}
         title="Users"
         buttonLabel="New user"
