@@ -5,7 +5,6 @@ import { FETCH_PER_PAGE_LIMIT } from "@/lib/constants";
 import prisma from "@/lib/db";
 import { Property, PropertyType } from "@prisma/client";
 import { unstable_noStore as noStore } from "next/cache";
-import { Suspense } from "react";
 
 interface CityCount {
   [city: string]: number;
@@ -39,8 +38,7 @@ async function fetchAllProperties() {
       images: true,
     },
   });
-  const totalProperties = await prisma.property.count();
-  return { properties, totalProperties };
+  return properties;
 }
 
 export default async function PropertiesPage({
@@ -80,7 +78,7 @@ export default async function PropertiesPage({
     return { filteredProperties, filteredPropertiesCount };
   }
 
-  const { properties, totalProperties } = await fetchAllProperties();
+  const properties = await fetchAllProperties();
   const { filteredProperties, filteredPropertiesCount } =
     await fetchFilteredProperties(searchParams);
   const cityCounts = countCities(properties);
@@ -92,14 +90,12 @@ export default async function PropertiesPage({
       <Header />
       <div className="pt-[150px] max-w-5xl xl:max-w-6xl mx-auto px-4 py-12 space-y-4">
         <PropertiesFilters cityCounts={cityCounts} />
-        <Suspense>
-          <PropertiesDisplay
-            searchParams={searchParams}
-            currentPage={+currentPage}
-            totalPages={totalPages}
-            filteredProperties={filteredProperties}
-          />
-        </Suspense>
+        <PropertiesDisplay
+          searchParams={searchParams}
+          currentPage={+currentPage}
+          totalPages={totalPages}
+          filteredProperties={filteredProperties}
+        />
       </div>
     </>
   );

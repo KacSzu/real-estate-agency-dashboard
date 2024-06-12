@@ -3,16 +3,16 @@ import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useIsMobile } from "@/hooks/use-is-mobile";
-import { HiBars3, HiOutlineTableCells } from "react-icons/hi2";
+import { HiBars3 } from "react-icons/hi2";
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { DASHBOARD_NAV_LINKS } from "../aside/dashboard-aside";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { DASHBOARD_NAV_LINKS } from "./dashboard-aside";
 function DashboardHeader() {
   const isMobile = useIsMobile("767");
   const { data: session } = useSession();

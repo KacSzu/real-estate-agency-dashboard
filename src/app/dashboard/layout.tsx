@@ -1,5 +1,5 @@
-import DashboardAside from "@/components/dashboard/aside/dashboard-aside";
-import DashboardHeader from "@/components/dashboard/header/dashboard-header";
+import DashboardAside from "@/components/dashboard/dashboard-aside";
+import DashboardHeader from "@/components/dashboard/dashboard-header";
 import { authOptions } from "@/lib/auth-options";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";

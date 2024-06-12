@@ -56,3 +56,13 @@ export const ContactFormSchema = z.object({
   email: z.string().min(1, "E-mail is required"),
   phone_number: z.string().min(1, "Phone number is required"),
 });
+export const LoginFormSchema = z.object({
+  email: z
+    .string()
+    .min(1, "This field can't be empty")
+    .email("This is not a valid email."),
+  password: z
+    .string()
+    .min(6, "Password has to be at least 6 characters long")
+    .max(50),
+});

@@ -17,29 +17,20 @@ import { redirect, useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 import { ImSpinner } from "react-icons/im";
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, "This field can't be empty")
-    .email("This is not a valid email."),
-  password: z
-    .string()
-    .min(6, "Password has to be at least 6 characters long")
-    .max(50),
-});
+import { LoginFormSchema } from "@/lib/schema";
 
 function LoginForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof LoginFormSchema>>({
+    resolver: zodResolver(LoginFormSchema),
     defaultValues: {
       email: "test@test.pl",
       password: "testte",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
     try {
       setIsLoading(true);
       const res = await signIn("credentials", { ...values, redirect: false });
@@ -71,7 +62,12 @@ function LoginForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="email@example.com" {...field} />
+                  <Input
+                    className="disabled:cursor-not-allowed"
+                    disabled={isLoading}
+                    placeholder="email@example.com"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -85,6 +81,8 @@ function LoginForm() {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
+                    className="disabled:cursor-not-allowed"
+                    disabled={isLoading}
                     type="password"
                     placeholder="Your password"
                     {...field}
@@ -94,9 +92,13 @@ function LoginForm() {
               </FormItem>
             )}
           />
-          <Button className="w-full" type="submit">
+          <Button
+            disabled={isLoading}
+            className="w-full disabled:cursor-not-allowed"
+            type="submit"
+          >
             {isLoading ? (
-              <ImSpinner className="animate-spin text-xl disabled:cursor-not-allowed" />
+              <ImSpinner className="animate-spin text-xl " />
             ) : (
               "Login"
             )}
