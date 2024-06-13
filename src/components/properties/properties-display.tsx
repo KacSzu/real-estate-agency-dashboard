@@ -35,7 +35,7 @@ function PropertiesDisplay({
     <section className=" space-y-8">
       {filteredProperties.map((property, i) => (
         <Link
-          className="flex flex-col md:flex-row cursor-pointer"
+          className="flex flex-col border p-3 rounded-2xl bg-muted/50 shadow-md md:flex-row cursor-pointer"
           href={`/properties/${property.id}`}
           key={i}
         >

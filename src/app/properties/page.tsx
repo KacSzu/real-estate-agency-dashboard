@@ -14,6 +14,8 @@ interface IPropertiesPage {
   searchParams: {
     city?: string;
     type?: string;
+    priceMin?: string;
+    priceMax?: string;
     page?: string;
   };
 }
@@ -47,17 +49,35 @@ export default async function PropertiesPage({
   async function fetchFilteredProperties(searchParams: {
     city?: string;
     type?: string;
+    priceMin?: string;
+    priceMax?: string;
     page?: string;
   }) {
     noStore();
 
-    const whereClause: { city?: string; type?: PropertyType } = {};
+    const whereClause: {
+      city?: string;
+      type?: PropertyType;
+      price?: {
+        gte?: number;
+        lte?: number;
+      };
+    } = {};
 
     if (searchParams.city) {
       whereClause.city = searchParams.city;
     }
     if (searchParams.type) {
       whereClause.type = searchParams.type as PropertyType;
+    }
+    if (searchParams.priceMin || searchParams.priceMax) {
+      whereClause.price = {};
+      if (searchParams.priceMin) {
+        whereClause.price.gte = parseInt(searchParams.priceMin, 10);
+      }
+      if (searchParams.priceMax) {
+        whereClause.price.lte = parseInt(searchParams.priceMax, 10);
+      }
     }
 
     const currentPage = parseInt(searchParams.page ?? "1", 10);

@@ -15,8 +15,9 @@ import { PropertyWithImagesType } from "@/lib/types";
 import { formatCurrency, formatDateToDDMMYYYY } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { memo } from "react";
+import { memo, useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi2";
+import { ImSpinner } from "react-icons/im";
 import { toast } from "sonner";
 
 interface IDashboardPropertiesTableBody {
@@ -26,15 +27,20 @@ interface IDashboardPropertiesTableBody {
 function DashboardPropertiesTableBody({
   properties,
 }: IDashboardPropertiesTableBody) {
+  const [loadingPropertyId, setLoadingPropertyId] = useState<number | null>(
+    null
+  );
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const deleteProperty = async (id: number) => {
     try {
+      setLoadingPropertyId(id);
       const response = await fetch(`/api/properties?id=${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
+        setLoadingPropertyId(null);
         toast.success("Successfully deleted property");
         if (properties.length === 1 && currentPage > 1) {
           router.push(`/dashboard/properties?page=${currentPage - 1}`);
@@ -43,10 +49,12 @@ function DashboardPropertiesTableBody({
           router.refresh();
         }
       } else {
+        setLoadingPropertyId(null);
         toast.error("Could not delete property");
         console.error("Failed to delete property");
       }
     } catch (error) {
+      setLoadingPropertyId(null);
       console.error("Failed to delete property", error);
     }
   };
@@ -94,9 +102,15 @@ function DashboardPropertiesTableBody({
               <div>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <button>
-                      <HiOutlineTrash className="ml-4 h-5 w-5 cursor-pointer" />
-                    </button>
+                    {loadingPropertyId === property.id ? (
+                      <button className="ml-4">
+                        <ImSpinner className="animate-spin h-5 w-5 cursor-not-allowed" />
+                      </button>
+                    ) : (
+                      <button>
+                        <HiOutlineTrash className="ml-4 h-5 w-5 cursor-pointer" />
+                      </button>
+                    )}
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
