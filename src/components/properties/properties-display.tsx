@@ -42,7 +42,7 @@ function PropertiesDisplay({
           <div>
             <PropertyImageCarousel images={property.images} />
           </div>
-          <div className="flex gap-1.5  flex-col w-[350px] md:w-full mx-auto  px-8 py-4">
+          <div className="flex gap-1.5  flex-col  md:w-full mx-auto   py-4 md:px-8">
             <p className="text-base lg:text-xl font-semibold lg:pr-3">
               {formatCurrency(property.price)}
             </p>

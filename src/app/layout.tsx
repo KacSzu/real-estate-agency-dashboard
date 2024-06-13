@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <SessionWrapper>
-      <html lang="en">
+      <html lang="en ">
         <body className={cn(poppins.variable, "antialiased ")}>
           <EdgeStoreProvider>
             <main>{children}</main>

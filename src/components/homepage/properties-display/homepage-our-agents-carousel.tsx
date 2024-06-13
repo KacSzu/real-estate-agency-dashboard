@@ -9,11 +9,7 @@ import {
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export function HomepageBestPropertiesCarousel({
-  images,
-}: {
-  images: string[];
-}) {
+export function HomepageOurAgentsCarousel({ images }: { images: string[] }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [emblaApi, setEmblaApi] = useState<CarouselApi | null>(null);
 
@@ -46,7 +42,7 @@ export function HomepageBestPropertiesCarousel({
                 <CardContent className="p-0 flex aspect-square items-center justify-center ">
                   <div className="relative w-full h-full ">
                     <Image
-                      className="rounded-2xl"
+                      className="rounded-xl"
                       src={image}
                       alt={`Slide ${index + 1}`}
                       layout="fill"
