@@ -1,8 +1,10 @@
 import prisma from "@/lib/db";
 import HomepagePropertiesStatisticsCard from "./homepage-properties-statistic-card";
 import HomepagePropertiesDisplayCard from "./homepage-properties-display-card";
+import { unstable_noStore as noStore } from "next/cache";
 
 const HomepagePropertiesDisplay = async () => {
+  noStore();
   const lastThreeAddedProperties = await prisma.property.findMany({
     orderBy: {
       createdAt: "desc",
