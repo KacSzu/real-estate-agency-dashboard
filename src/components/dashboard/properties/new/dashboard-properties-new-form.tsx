@@ -6,7 +6,9 @@ import {
   DashboardPropertiesNewDescriptionField,
   DashboardPropertiesNewNumberBathroomsField,
   DashboardPropertiesNewNumberBedroomsField,
+  DashboardPropertiesNewNumberRoomsField,
   DashboardPropertiesNewPriceField,
+  DashboardPropertiesNewSquaresField,
   DashboardPropertiesNewTitleField,
   DashboardPropertiesNewTypeField,
 } from "@/components/dashboard/properties/new/dashboard-properties-new-form-fields";
@@ -102,6 +104,8 @@ function DashboardPropertiesNewForm() {
           <DashboardPropertiesNewPriceField control={form.control} />
           <DashboardPropertiesNewNumberBedroomsField control={form.control} />
           <DashboardPropertiesNewNumberBathroomsField control={form.control} />
+          <DashboardPropertiesNewNumberRoomsField control={form.control} />
+          <DashboardPropertiesNewSquaresField control={form.control} />
           <DashboardPropertiesNewDescriptionField control={form.control} />
         </div>
         <div className="flex justify-center sm:justify-end">

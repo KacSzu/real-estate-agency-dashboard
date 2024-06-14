@@ -11,9 +11,9 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import PrimaryButton from "../buttons/primary-button";
 import { PhoneInput } from "../ui/phone-input";
 import { ContactFormSchema } from "@/lib/schema";
+import { Button } from "../ui/button";
 
 function PropertyContactForm() {
   const form = useForm<z.infer<typeof ContactFormSchema>>({
@@ -70,7 +70,7 @@ function PropertyContactForm() {
             </FormItem>
           )}
         />
-        <PrimaryButton text="Submit" type="submit" />
+        <Button className="w-full">Send</Button>
       </form>
     </Form>
   );

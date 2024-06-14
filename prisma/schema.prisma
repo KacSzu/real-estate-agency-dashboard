@@ -47,6 +47,8 @@ model Property {
   price            Float
   numberBedrooms   Float
   numberBathrooms  Float
+  numberRooms      Float
+  squares          Float
   description      String
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt

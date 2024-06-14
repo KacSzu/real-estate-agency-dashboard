@@ -161,6 +161,40 @@ const DashboardPropertiesNewNumberBathroomsField: React.FC<FormFieldProps> = ({
     )}
   />
 );
+const DashboardPropertiesNewNumberRoomsField: React.FC<FormFieldProps> = ({
+  control,
+}) => (
+  <FormField
+    control={control}
+    name="numberRooms"
+    render={({ field }) => (
+      <FormItem className="flex flex-col gap-1 col-span-12 md:col-span-4">
+        <FormLabel>Number of rooms</FormLabel>
+        <FormControl>
+          <Input type="number" placeholder="For instance 1" {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+);
+const DashboardPropertiesNewSquaresField: React.FC<FormFieldProps> = ({
+  control,
+}) => (
+  <FormField
+    control={control}
+    name="squares"
+    render={({ field }) => (
+      <FormItem className="flex flex-col gap-1 col-span-12 md:col-span-4">
+        <FormLabel>Squares</FormLabel>
+        <FormControl>
+          <Input type="number" placeholder="For instance 1" {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )}
+  />
+);
 
 const DashboardPropertiesNewDescriptionField: React.FC<FormFieldProps> = ({
   control,
@@ -169,7 +203,7 @@ const DashboardPropertiesNewDescriptionField: React.FC<FormFieldProps> = ({
     control={control}
     name="description"
     render={({ field }) => (
-      <FormItem className="flex flex-col gap-1 justify-center col-span-12 md:col-span-8">
+      <FormItem className="flex flex-col gap-1 justify-center col-span-12 ">
         <FormLabel>Description</FormLabel>
         <FormControl>
           <Textarea placeholder="Describe the property" {...field} />
@@ -189,4 +223,6 @@ export {
   DashboardPropertiesNewNumberBedroomsField,
   DashboardPropertiesNewNumberBathroomsField,
   DashboardPropertiesNewDescriptionField,
+  DashboardPropertiesNewSquaresField,
+  DashboardPropertiesNewNumberRoomsField,
 };

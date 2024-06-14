@@ -45,11 +45,11 @@ function PropertyImageCarousel({ images }: IPropertyImageCarousel) {
         <CarouselContent>
           {images.map((image, index) => (
             <CarouselItem key={index}>
-              <Card className="rounded-2xl ">
+              <Card className="rounded-xl ">
                 <CardContent className="p-0 flex aspect-square items-center justify-center ">
                   <div className="relative w-full h-full ">
                     <Image
-                      className="rounded-2xl"
+                      className="rounded-xl"
                       src={image.imageSrc}
                       alt="Property photo"
                       layout="fill"

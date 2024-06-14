@@ -3,7 +3,7 @@ import { HomepageOurAgentsCarousel } from "./properties-display/homepage-our-age
 function HomepageOurAgents() {
   const images = ["/agents/3.jpg", "/agents/2.jpg", "/agents/1.jpg"];
   return (
-    <section className="px-4 py-12 grid gap-8 grid-cols-12 md:items-center max-w-5xl xl:max-w-6xl mx-auto">
+    <section className="relative px-4 py-12 grid gap-8 grid-cols-12 md:items-center max-w-5xl xl:max-w-6xl mx-auto">
       <div className="space-y-4 col-span-12 text-center sm:text-left sm:col-span-6 md:col-span-7">
         <h2 className="text-4xl ">
           Our <span className="font-[200]">agents</span>

@@ -14,6 +14,8 @@ export async function POST(request: NextRequest) {
       files,
       numberBathrooms,
       numberBedrooms,
+      numberRooms,
+      squares,
       price,
       title,
       type,
@@ -30,6 +32,8 @@ export async function POST(request: NextRequest) {
         type: type as PropertyType,
         numberBedrooms,
         numberBathrooms,
+        numberRooms,
+        squares,
         images: {
           create: files.map(
             (file: { imageSrc: string; thumbnailSrc: string | null }) => ({

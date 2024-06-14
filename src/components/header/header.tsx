@@ -4,10 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import DesktopNav from "./desktop-nav";
 import { useIsMobile } from "@/hooks/use-is-mobile";
-import { IoMenu } from "react-icons/io5";
-import MobileNav from "./mobile-nav";
-import Modal from "../ui/modal";
-
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { HiBars3 } from "react-icons/hi2";
+import { NAV_LINKS } from "@/lib/constants";
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isScrollingUp, setIsScrollingUp] = useState(false);
@@ -42,7 +46,7 @@ function Header() {
       }`}
     >
       <div
-        className={`w-[80%] h-[80px] bg-white rounded-3xl shadow-xl flex justify-between items-center px-4 transition-opacity duration-300 ${
+        className={`w-[80%] h-[80px] bg-white rounded-3xl shadow-md flex justify-between items-center px-4 transition-opacity duration-300 ${
           isScrolled && !isScrollingUp ? "opacity-0" : "opacity-100"
         }`}
       >
@@ -52,14 +56,26 @@ function Header() {
           </Link>
         </div>
         {isMobile ? (
-          <Modal>
-            <Modal.Open opens="mobile-nav">
-              <IoMenu className="text-3xl cursor-pointer" />
-            </Modal.Open>
-            <Modal.Window name="mobile-nav">
-              <MobileNav onCloseModal={close} />
-            </Modal.Window>
-          </Modal>
+          <Sheet>
+            <SheetTrigger>
+              <span className="text-2xl cursor-pointer">
+                <HiBars3 />
+              </span>
+            </SheetTrigger>
+            <SheetContent className="p-8">
+              <ul className="space-y-2 divide-y">
+                {NAV_LINKS.map((link, i) => (
+                  <li key={i} className="py-2">
+                    <Link href={link.href}>
+                      <SheetClose className="flex gap-2 items-center text-xl  ">
+                        <span> {link.label}</span>
+                      </SheetClose>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </SheetContent>
+          </Sheet>
         ) : (
           <DesktopNav />
         )}

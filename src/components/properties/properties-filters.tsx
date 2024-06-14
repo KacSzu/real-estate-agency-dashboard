@@ -12,6 +12,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 interface IPropertiesFiltersProps {
   cityCounts: {
@@ -59,7 +60,21 @@ function PropertiesFilters({ cityCounts }: IPropertiesFiltersProps) {
   };
 
   return (
-    <div className="flex flex-col bg-muted/50 md:flex-row justify-center md:justify-start items-center gap-3 border rounded-2xl shadow-md p-4">
+    <div className="relative flex flex-col bg-muted md:flex-row justify-center md:justify-start items-center gap-3 border rounded-xl shadow-md p-4">
+      <Image
+        src="/svg/svg7.svg"
+        alt="svg"
+        width={450}
+        height={450}
+        className=" -left-40 -top-30 absolute  z-[-10]"
+      />
+      <Image
+        src="/svg/svg6.svg"
+        alt="svg"
+        width={450}
+        height={450}
+        className=" hidden xl:block -top-20 -right-20 absolute  z-[-10]"
+      />
       <div className="w-full space-y-1">
         <p className="text-sm font-semibold">Price</p>
         <Select value={selectedType || ""} onValueChange={setSelectedType}>

@@ -15,14 +15,26 @@ export const NewPropertyFormSchema = z.object({
   numberBedrooms: z.preprocess(
     (val) => Number(val),
     z
-      .number({ message: "Price must be postive number" })
+      .number({ message: "Number of bedrooms must be postive number" })
       .positive({ message: "Number of bedrooms must be a positive number" })
   ),
   numberBathrooms: z.preprocess(
     (val) => Number(val),
     z
-      .number({ message: "Price must be postive number" })
+      .number({ message: "Number of bathrooms must be postive number" })
       .positive({ message: "Number of bathrooms must be a positive number" })
+  ),
+  numberRooms: z.preprocess(
+    (val) => Number(val),
+    z
+      .number({ message: "Number of rooms must be postive number" })
+      .positive({ message: "Number of rooms must be a positive number" })
+  ),
+  squares: z.preprocess(
+    (val) => Number(val),
+    z
+      .number({ message: "Squares must be postive number" })
+      .positive({ message: "Squares must be a positive number" })
   ),
   description: z.string().min(1, { message: "Description is required" }),
 });

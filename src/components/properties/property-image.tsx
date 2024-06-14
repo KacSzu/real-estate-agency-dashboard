@@ -15,7 +15,7 @@ const PropertyImage: React.FC<PropertyImageProps> = ({ src, alt, colSpan }) => {
         alt={alt}
         width={500}
         height={500}
-        className="w-full h-full object-cover rounded-2xl shadow-xl"
+        className="w-full h-full object-cover rounded-xl shadow-md"
       />
     </div>
   );
