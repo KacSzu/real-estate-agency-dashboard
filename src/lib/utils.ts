@@ -11,10 +11,13 @@ export function formatDateToDDMMYYYY(date: Date): string {
   return `${day}/${month}/${year}`;
 }
 export const formatCurrency = (amount: number, currencyCode = "USD") => {
-  return new Intl.NumberFormat("en-US", {
+  const formatted = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currencyCode,
-  }).format(amount);
+    maximumFractionDigits: 0,
+  }).format(Math.round(amount));
+
+  return formatted.replace(/,/g, " ");
 };
 
 export const isFresh = (createdAt: Date | string) => {

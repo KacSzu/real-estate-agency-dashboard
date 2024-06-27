@@ -53,7 +53,6 @@ function DashboardTypeChart({ properties }: ITypeChart) {
       value: projectTypeCounts.Flat,
     },
   ];
-  console.log(projectTypeCounts);
   return (
     <Card className="col-span-3 ">
       <CardTitle className="p-6  tracking-tight text-sm font-medium">

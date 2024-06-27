@@ -76,14 +76,13 @@ function PropertiesFilters({ cityCounts }: IPropertiesFiltersProps) {
         className=" hidden xl:block -top-20 -right-20 absolute  z-[-10]"
       />
       <div className="w-full space-y-1">
-        <p className="text-sm font-semibold">Price</p>
+        <p className="text-sm font-semibold">Types</p>
         <Select value={selectedType || ""} onValueChange={setSelectedType}>
           <SelectTrigger>
             <SelectValue placeholder="Select a type" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Types</SelectLabel>
               {["Villa", "Home", "Flat"].map((str, i) => (
                 <SelectItem key={i} value={str}>
                   {str}
@@ -101,7 +100,6 @@ function PropertiesFilters({ cityCounts }: IPropertiesFiltersProps) {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Cities</SelectLabel>
               {cityCounts.map(({ city, count }) => (
                 <SelectItem key={city} value={city}>
                   {city}

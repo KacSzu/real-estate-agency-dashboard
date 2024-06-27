@@ -4,7 +4,6 @@ import PropertiesFilters from "@/components/properties/properties-filters";
 import { FETCH_PER_PAGE_LIMIT } from "@/lib/constants";
 import prisma from "@/lib/db";
 import { Property, PropertyType } from "@prisma/client";
-import { unstable_noStore as noStore } from "next/cache";
 
 interface CityCount {
   [city: string]: number;
@@ -34,7 +33,6 @@ function countCities(properties: Property[]) {
 }
 
 async function fetchAllProperties() {
-  noStore();
   const properties = await prisma.property.findMany({
     include: {
       images: true,
@@ -53,8 +51,6 @@ export default async function PropertiesPage({
     priceMax?: string;
     page?: string;
   }) {
-    noStore();
-
     const whereClause: {
       city?: string;
       type?: PropertyType;
